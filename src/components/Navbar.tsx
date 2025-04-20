@@ -6,7 +6,12 @@ import Link from 'next/link';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const navLinks = [
+    { title: 'Products', items: ['Product 1', 'Product 2'] },
+    { title: 'Company', items: ['About Us', 'Careers'] },
+    { title: 'Resources', items: ['Docs', 'Help Center'] },
+  ];
+  
   return (
     <div className="relative z-50">
       {/* Floating Navbar Container */}
@@ -14,7 +19,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center flex-wrap">
           {/* Left: Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/logo.simbian.jpg" alt="Logo" width={28} height={28} />
+            <Image src="/logo.simbian.jpg" alt="Logo" width={28} height={28} priority />
             <span className="font-bold text-base md:text-lg">Simbian</span>
           </Link>
 
@@ -40,9 +45,10 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden mt-4 space-y-3">
-            <DropdownMobile title="Products" items={['Product 1', 'Product 2']} />
-            <DropdownMobile title="Company" items={['About Us', 'Careers']} />
-            <DropdownMobile title="Resources" items={['Docs', 'Help Center']} />
+           {navLinks.map((section) => (
+  <Dropdown key={section.title} {...section} />
+))}
+
             <Link href="#" className="block font-semibold">Blog</Link>
             <Link href="#" className="block w-full text-center mt-2 bg-white text-[#0b122d] px-4 py-2 rounded-full font-semibold">
               Book a Demo

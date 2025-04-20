@@ -16,13 +16,13 @@ export default function RootLayout({
   );
 }
 
-// styles
-const styles: { [key: string]: any } = {
+// ✅ Properly typed styles object
+const styles: Record<string, React.CSSProperties> = {
   iconBoxs: {
     backgroundColor: 'blue',
-    backgroundImage: 'url("/robot.jpg")', 
-    backgroundSize: 'cover',             
-    backgroundRepeat: 'no-repeat',     
-    minHeight: '100vh', 
-  }
-}
+    backgroundImage: 'url("/robot.jpg")',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    minHeight: '100vh',
+  },
+};

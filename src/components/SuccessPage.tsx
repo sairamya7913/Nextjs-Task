@@ -12,7 +12,6 @@ export default function SuccessPage() {
     const parsedCounts = countsParam ? countsParam.split(',').map(Number) : [0, 0, 0];
 
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [rotatingTextIndex, setRotatingTextIndex] = useState(0);
     const [cardData, setCardData] = useState([
         { id: 1, count: parsedCounts[0], items: Array.from({ length: parsedCounts[0] }, (_, i) => i) },
         { id: 2, count: parsedCounts[1], items: Array.from({ length: parsedCounts[1] }, (_, i) => i + 10) },
@@ -103,17 +102,7 @@ export default function SuccessPage() {
         return () => clearInterval(interval);
     }, []);
 
-    useEffect(() => {
-        if (activeIndex === 0) {
-            const interval = setInterval(() => {
-                setRotatingTextIndex((prevIndex) =>
-                    (prevIndex + 1) % rotatingMessages.length
-                );
-            }, 1000);
-
-            return () => clearInterval(interval);
-        }
-    }, [activeIndex]);
+   
 
     return (
         <div style={styles.main}>
