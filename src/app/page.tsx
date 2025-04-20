@@ -6,19 +6,27 @@ import Image from 'next/image';
 
 export default function HomePage() {
   const router = useRouter();
-
+  interface Card {
+    id: number;
+    count: number;
+    items: number[];
+  }
+  
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [rotatingTextIndex, setRotatingTextIndex] = useState(0);
-  const [cardData, setCardData] = useState([
+  const [rotatingTextIndex, setRotatingTextIndex] = useState<number>(0);
+  const [cardData, setCardData] = useState<Card[]>([
     { id: 1, count: 10, items: Array.from({ length: 10 }, (_, i) => i) },
     { id: 2, count: 10, items: Array.from({ length: 10 }, (_, i) => i + 10) },
     { id: 3, count: 0, items: [] },
   ]);
-  const cardNames = [
+  
+
+  const cardNames: { key: string; title: string }[] = [
     { key: 'card1', title: 'Ignored Alerts' },
     { key: 'card2', title: 'Wrongly Closed' },
     { key: 'card3', title: 'Active Threats' },
   ];
+  
 
   const data = [
     { icon: '💡', text: 'Wating analyst time on false +ves' },
@@ -30,18 +38,18 @@ export default function HomePage() {
     'Wasting analyst time on false +ves',
     'Chasing alert with no real threats',
     'Manual triage is burning hour true',
-];
+  ];
   const handleDragStart = (
     e: React.DragEvent<HTMLDivElement>,
     cardIndex: number,
     itemIndex: number
   ) => {
     console.log(`Dragging item ${itemIndex} from card ${cardIndex}`);
-
+  
     e.dataTransfer.setData('cardIndex', cardIndex.toString());
     e.dataTransfer.setData('itemIndex', itemIndex.toString());
   };
-
+  
   const handleDrop = (
     e: React.DragEvent<HTMLDivElement>,
     targetCardIndex: number
@@ -49,20 +57,21 @@ export default function HomePage() {
     e.preventDefault();
     const fromCardIndex = parseInt(e.dataTransfer.getData('cardIndex'));
     const itemIndex = parseInt(e.dataTransfer.getData('itemIndex'));
-
+  
     if (fromCardIndex === targetCardIndex) return;
-
+  
     const itemToMove = cardData[fromCardIndex].items[itemIndex];
-
+  
     const updatedCardData = [...cardData];
     updatedCardData[fromCardIndex].items.splice(itemIndex, 1);
     updatedCardData[fromCardIndex].count -= 1;
-
+  
     updatedCardData[targetCardIndex].items.push(itemToMove);
     updatedCardData[targetCardIndex].count += 1;
-
+  
     setCardData(updatedCardData);
   };
+  
 
   useEffect(() => {
     if (cardData[2].count === 3) {
@@ -87,8 +96,8 @@ export default function HomePage() {
   }, [activeIndex, rotatingMessages.length]);
 
   return (
-<div style={{ maxWidth: '1200px', margin: '0 auto', padding: '1rem' }}>
-<section style={styles.section}>
+    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '1rem' }}>
+      <section style={styles.section}>
         <div style={styles.leftColumn}>
           {data.map((item, index) => (
             <div key={index} style={styles.iconRow}>
@@ -133,13 +142,13 @@ export default function HomePage() {
           <button style={styles.cta}>
             <div style={styles.ctaContent}>
               <span >Book a Demo</span>
-              <Image 
-  src="/logo.simbian.jpg" 
-  alt="Logo" 
-  width={20} 
-  height={20} 
-  style={styles.logo}
-/>            </div>
+              <Image
+                src="/logo.simbian.jpg"
+                alt="Logo"
+                width={20}
+                height={20}
+                style={styles.logo}
+              />            </div>
           </button>
         </div>
 
@@ -178,9 +187,9 @@ export default function HomePage() {
                 </div>
 
                 <div className="text-3xl font-bold"
-                style={{
-                  color: cardIndex === 2 && card.count === 3 ? 'red' : 'blue',
-                }}>{card.count}</div>
+                  style={{
+                    color: cardIndex === 2 && card.count === 3 ? 'red' : 'blue',
+                  }}>{card.count}</div>
               </div>
 
               <div className="flex overflow-x-hidden">
@@ -286,7 +295,7 @@ const styles: { [key: string]: any } = {
     marginLeft: 'auto', // let it naturally align to the right
     marginRight: '2rem', // padding from the edge
   },
-  
+
   iconRow: {
     position: 'relative',
     display: 'flex',
@@ -334,7 +343,7 @@ const styles: { [key: string]: any } = {
     textAlign: 'right',
     marginLeft: 'auto',
     maxWidth: '400px',
-    marginTop:'50px',
+    marginTop: '50px',
   },
   heading: {
     fontSize: '3rem',
@@ -357,7 +366,7 @@ const styles: { [key: string]: any } = {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
-    color:'black'
+    color: 'black'
   },
   logo: {
     width: '20px',
@@ -365,30 +374,30 @@ const styles: { [key: string]: any } = {
     objectFit: 'contain',
   },
   // Responsive overrides
-'@media (max-width: 1024px)': {
-  section: {
-    flexDirection: 'column',
-    alignItems: 'center',
+  '@media (max-width: 1024px)': {
+    section: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    leftColumn: {
+      marginLeft: 0,
+      marginTop: '2rem',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+    },
+    textContent: {
+      textAlign: 'center',
+      maxWidth: '100%',
+    },
+    secondPart: {
+      flexDirection: 'column',
+      gap: '2rem',
+    },
+    rectangleBox: {
+      marginLeft: 0,
+    },
   },
-  leftColumn: {
-    marginLeft: 0,
-    marginTop: '2rem',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  textContent: {
-    textAlign: 'center',
-    maxWidth: '100%',
-  },
-  secondPart: {
-    flexDirection: 'column',
-    gap: '2rem',
-  },
-  rectangleBox: {
-    marginLeft: 0,
-  },
-},
 
   // Optional: if you want to dynamically position textbox for each icon
   leftBox: (index: number): React.CSSProperties => ({
