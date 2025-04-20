@@ -25,15 +25,13 @@ const Navbar = () => {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-6 ml-auto">
-            <Dropdown title="Products" items={['Product 1', 'Product 2']} />
-            <Dropdown title="Company" items={['About Us', 'Careers']} />
-            <Dropdown title="Resources" items={['Docs', 'Help Center']} />
+            {navLinks.map((section) => (
+              <Dropdown key={section.title} {...section} />
+            ))}
             <Link href="#" className="hover:underline">Blog</Link>
-
             <Link href="#" className="ml-3 bg-white text-[#0b122d] px-3 py-1.5 rounded-full font-medium text-sm flex items-center space-x-1">
               <span>Book a Demo</span>
             </Link>
-
           </div>
 
           {/* Mobile Toggle */}
@@ -45,10 +43,9 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden mt-4 space-y-3">
-           {navLinks.map((section) => (
-  <Dropdown key={section.title} {...section} />
-))}
-
+            {navLinks.map((section) => (
+              <Dropdown key={section.title} {...section} />
+            ))}
             <Link href="#" className="block font-semibold">Blog</Link>
             <Link href="#" className="block w-full text-center mt-2 bg-white text-[#0b122d] px-4 py-2 rounded-full font-semibold">
               Book a Demo
@@ -78,17 +75,6 @@ const Dropdown = ({ title, items }: DropdownProps) => (
         </Link>
       ))}
     </div>
-  </div>
-);
-
-const DropdownMobile = ({ title, items }: { title: string; items: string[] }) => (
-  <div className="space-y-1">
-    <p className="font-semibold">{title}</p>
-    {items.map((item, index) => (
-      <Link key={index} href="#" className="block pl-4 text-sm">
-        {item}
-      </Link>
-    ))}
   </div>
 );
 

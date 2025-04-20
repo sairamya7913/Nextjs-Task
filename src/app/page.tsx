@@ -2,6 +2,7 @@
 import { AlertTriangle, BellOff, Shield } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export default function HomePage() {
   const router = useRouter();
@@ -132,8 +133,13 @@ export default function HomePage() {
           <button style={styles.cta}>
             <div style={styles.ctaContent}>
               <span >Book a Demo</span>
-              <img src="logo.simbian.jpg" alt="Logo" style={styles.logo} />
-            </div>
+              <Image 
+  src="/logo.simbian.jpg" 
+  alt="Logo" 
+  width={20} 
+  height={20} 
+  style={styles.logo}
+/>            </div>
           </button>
         </div>
 
