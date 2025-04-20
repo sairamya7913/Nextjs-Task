@@ -69,11 +69,12 @@ export default function SuccessPage() {
 
     useEffect(() => {
         if (cardData[2].count === 3) {
-            setTimeout(() => {
-                router.push('/success');
-            }, 500);
+          setTimeout(() => {
+            router.push('/success');
+          }, 500);
         }
-    }, [cardData]);
+      }, [cardData, router]);
+      
     useEffect(() => {
         const interval = setInterval(() => {
             setCardData(prevData => {

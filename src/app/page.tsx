@@ -70,7 +70,7 @@ export default function HomePage() {
         router.push(`/success?counts=${counts}`);
       }, 500);
     }
-  }, [cardData]);
+  }, [cardData, router]);
 
 
   useEffect(() => {
@@ -83,7 +83,7 @@ export default function HomePage() {
 
       return () => clearInterval(interval);
     }
-  }, [activeIndex]);
+  }, [activeIndex, rotatingMessages.length]);
 
   return (
 <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '1rem' }}>

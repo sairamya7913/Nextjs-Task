@@ -27,7 +27,6 @@ const Navbar = () => {
 
             <Link href="#" className="ml-3 bg-white text-[#0b122d] px-3 py-1.5 rounded-full font-medium text-sm flex items-center space-x-1">
               <span>Book a Demo</span>
-              {/* <Image src="/logo.png" alt="Demo Icon" width={14} height={14} /> */}
             </Link>
 
           </div>
@@ -55,7 +54,12 @@ const Navbar = () => {
   );
 };
 
-const Dropdown = ({ title, items }: { title: string; items: string[] }) => (
+type DropdownProps = {
+  title: string;
+  items: string[];
+};
+
+const Dropdown = ({ title, items }: DropdownProps) => (
   <div className="relative group cursor-pointer">
     <div className="flex items-center space-x-1">
       <span>{title}</span>
